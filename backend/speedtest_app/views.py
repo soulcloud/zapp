@@ -25,12 +25,12 @@ class SpeedTestView(APIView):
                 'server': server,
             }
 
-            # Corrected serializer instantiation using keyword argument
+            # Correct instantiation of the serializer with keyword argument
             serializer = SpeedTestSerializer(data=data)
             if serializer.is_valid():
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
-            # If serializer isn't used or data isn't valid, return data directly
+            # Return the raw data if serializer fails validation
             return Response(data, status=status.HTTP_200_OK)
 
         except Exception as e:

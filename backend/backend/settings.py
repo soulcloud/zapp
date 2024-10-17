@@ -135,6 +135,10 @@ REST_FRAMEWORK = {
     ]
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Adjust this based on your frontend's URL
+]
+
 # backend/settings.py
 LOGGING = {
     'version': 1,
