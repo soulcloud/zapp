@@ -1,9 +1,12 @@
 # speedtest_app/views.py
+import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import speedtest
 from .serializers import SpeedTestSerializer
+
+logger = logging.getLogger(__name__)
 
 class SpeedTestView(APIView):
     def get(self, request):
@@ -31,4 +34,5 @@ class SpeedTestView(APIView):
             return Response(data, status=status.HTTP_200_OK)
 
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.error(f"Speed test failed: {e}")
+            return Response({'error': 'An error occurred while performing the speed test.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
