@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './SpeedTest.css'; // Import the CSS file for styling
 
 const SpeedTest = () => {
   const [loading, setLoading] = useState(false);
@@ -10,15 +11,10 @@ const SpeedTest = () => {
     setLoading(true);
     setResult(null);
     setError(null);
-    const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';  // Fallback URL
-    
     try {
-      const response = await axios.get(`${apiUrl}/speedtest/test/`);
-      console.log("Response data:", response.data);  // Check the response structure
-      setResult(response.data);  // Set the result with the response data
-      
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/speedtest/test/`);
+      setResult(response.data); // Assuming the response data structure contains speed info
     } catch (err) {
-      console.error("Error performing speed test:", err);
       setError('Failed to perform speed test.');
     } finally {
       setLoading(false);
@@ -26,22 +22,34 @@ const SpeedTest = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Fast Clone Speed Test</h1>
-      <button onClick={performTest} disabled={loading}>
+    <div className="speed-test-container">
+      <h1 className="title">Zapp Speed Test</h1>
+      <button className={`test-button ${loading ? 'loading' : ''}`} onClick={performTest} disabled={loading}>
         {loading ? 'Testing...' : 'Start Test'}
       </button>
 
       {result && (
-        <div style={{ marginTop: '20px' }}>
-          <p><strong>Download:</strong> {result.download} Mbps</p>
-          <p><strong>Upload:</strong> {result.upload} Mbps</p>
-          <p><strong>Ping:</strong> {result.ping} ms</p>
-          <p><strong>Server:</strong> {result.server}</p>
+        <div className="results-container">
+          <div className="result-item">
+            <span className="result-label">Download:</span>
+            <span className="result-value">{result.download} Mbps</span>
+          </div>
+          <div className="result-item">
+            <span className="result-label">Upload:</span>
+            <span className="result-value">{result.upload} Mbps</span>
+          </div>
+          <div className="result-item">
+            <span className="result-label">Ping:</span>
+            <span className="result-value">{result.ping} ms</span>
+          </div>
+          <div className="result-item">
+            <span className="result-label">Server:</span>
+            <span className="result-value">{result.server}</span>
+          </div>
         </div>
       )}
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
