@@ -1,20 +1,8 @@
 /* src/components/SpeedTest.css */
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .speed-test-container {
-    max-width: 600px;
-    margin: 100px auto;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.speedtest-container {
     text-align: center;
+    margin-top: 50px;
+    font-family: 'Arial', sans-serif;
   }
   
   .title {
@@ -22,50 +10,61 @@ body {
     color: #333;
   }
   
-  .test-button {
-    background-color: #28a745;
-    color: white;
+  .status {
+    margin-top: 20px;
+  }
+  
+  .start-button {
     padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #4CAF50;
+    color: white;
     border: none;
     border-radius: 5px;
-    font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .test-button:hover {
-    background-color: #218838;
+  .start-button:hover {
+    background-color: #45a049;
   }
   
-  .test-button.loading {
-    background-color: #6c757d;
-  }
-  
-  .results-container {
+  .result {
     margin-top: 30px;
-    padding: 15px;
-    border-top: 1px solid #eaeaea;
+    font-size: 1.1rem;
   }
   
-  .result-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #eaeaea;
-  }
-  
-  .result-label {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .result-value {
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .error-message {
+  .error {
     color: red;
+  }
+  
+  .progress-bar {
     margin-top: 20px;
+    width: 80%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .progress-bar::before {
+    content: '';
+    width: 0%;
+    height: 100%;
+    background-color: #76c7c0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: progress 5s linear infinite;
+  }
+  
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
   }
   
