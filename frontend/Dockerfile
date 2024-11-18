@@ -4,14 +4,14 @@ FROM node:18
 # Set the working directory
 WORKDIR /app
 
-# Copy frontend files
+# Copy the frontend folder contents into the container
 COPY ./frontend /app
 
-# Install dependencies and build the app
+# Install Node.js dependencies
 RUN npm install && npm run build
 
-# Expose the port the frontend will run on
+# Expose the React development server port
 EXPOSE 3000
 
-# Start the frontend server
+# Start the React development server
 CMD ["npm", "start"]
